@@ -12,7 +12,7 @@ object App {
    */
   def main(args: Array[String]): Unit = {
     // create spark session with settings
-    System.setProperty("hadoop.home.dir","C:\\hadoop")
+    System.setProperty("hadoop.home.dir","C:\\hadoop")//Vous devez Créer le dossier C:\hadoop\bin et y mettre le fichier winutils.exe que vous trouverez dans google
     val spark = SparkSession
       .builder
       .master("local[*]")
@@ -27,7 +27,7 @@ object App {
       .readStream
       .format("kafka")
       .option("kafka.bootstrap.servers", "localhost:9092")
-      .option("subscribe", "dataFimela")
+      .option("subscribe", "votreTopic") // changer le nom du topic en votre nom de topic
       .option("startingOffsets","latest") //earliest
       .load()
       .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
